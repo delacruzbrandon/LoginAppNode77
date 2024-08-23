@@ -29,11 +29,12 @@ router.post('/auth', async (req, res) => {
     let {username, password} = req.body;
 
     const user = await User.findOne({username: username});
-    const userToken = jwt.sign(user.username, accessToken);
-
+    
     if (user == null) {
         return res.status(400).send("User not found");
     };
+
+    const userToken = jwt.sign(user.username, accessToken);
 
     try {
         bcrypt.compare(password, user.password, function(err, result) {
