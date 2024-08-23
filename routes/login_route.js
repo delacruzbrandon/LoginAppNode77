@@ -11,12 +11,13 @@ const accessToken = process.env.ACCESS_TOKEN_SECRET;
 router.get('/list', async (req, res) => {    
     // Use Mongoose to find all users in the database
     const userList = await User.find().select('-_id username');
-
+    
     if(!userList) {
         res.status(500).json({success: false})
     }
+    const usernames = userList.map(user => user.username);
 
-    res.send(userList)
+    res.send(usernames)
 });
 
 router.get('/verify', authenticateKey, async (req, res) => {
