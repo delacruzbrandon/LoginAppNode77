@@ -10,7 +10,7 @@ const accessToken = process.env.ACCESS_TOKEN_SECRET;
 
 router.get('/list', async (req, res) => {    
     // Use Mongoose to find all users in the database
-    const userList = await User.find();
+    const userList = await User.find().select('-_id username');
 
     if(!userList) {
         res.status(500).json({success: false})
