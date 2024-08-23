@@ -8,11 +8,12 @@ const saltRounds = 10;
 const accessToken = process.env.ACCESS_TOKEN_SECRET;
 
 router.post('/add', async (req, res) => {   
+    let username = req.body.username;
     let rawPassword = req.body.password;
     
     bcrypt.hash(rawPassword, saltRounds, function(err, hashedPassword) {
         let newUser = new User({
-            username: req.body.username,
+            username: username,
             password: hashedPassword,
         })
 
